@@ -6,6 +6,10 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from .pregunta_01 import read_file
+from collections import Counter
+
+
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -24,5 +28,9 @@ def pregunta_04():
      ('10', 2),
      ('11', 2),
      ('12', 3)]
-
     """
+    path_file = "files/input/data.csv"
+    lines = read_file(path_file)
+    dates = [col[2] for col in lines]
+    dates = [date.split("-")[1] for date in dates]
+    return sorted(Counter(dates).items())
