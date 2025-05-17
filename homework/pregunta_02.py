@@ -6,6 +6,10 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from .pregunta_01 import read_file
+from collections import Counter
+
+
 def pregunta_02():
     """
     Retorne la cantidad de registros por cada letra de la primera columna como
@@ -13,5 +17,8 @@ def pregunta_02():
 
     Rta/
     [('A', 8), ('B', 7), ('C', 5), ('D', 6), ('E', 14)]
-
     """
+    path_file = "files/input/data.csv"
+    lines = read_file(path_file)
+    first_col = [col[0] for col in lines]
+    return sorted(Counter(first_col).items())
