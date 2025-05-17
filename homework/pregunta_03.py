@@ -5,6 +5,22 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+from .pregunta_01 import read_file
+from itertools import groupby
+
+
+def shuffle_and_sort(sequence):
+    """Shuffle and Sort"""
+    return sorted(sequence, key=lambda x: x[0])
+
+
+def reducer(sequence):
+    """Reducer"""
+    result = []
+    for key, group in groupby(sequence, lambda x: x[0]):
+        result.append((key, sum(value for _, value in group)))
+    return result
+
 
 def pregunta_03():
     """
@@ -13,5 +29,10 @@ def pregunta_03():
 
     Rta/
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
-
     """
+    file_path = "files/input/data.csv"
+    lines = read_file(file_path)
+    sequence = [(col[0], int(col[1])) for col in lines]
+    sequence = shuffle_and_sort(sequence)
+    sequence = reducer(sequence)
+    return sequence
