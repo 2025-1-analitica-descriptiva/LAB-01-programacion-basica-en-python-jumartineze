@@ -6,6 +6,24 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from .pregunta_01 import read_file
+from collections import Counter
+
+
+def mapper(lines):
+    sequence = [col[4].split(",") for col in lines]
+    sequence = [item for sublist in sequence for item in sublist]
+    sequence = [item.split(":") for item in sequence]
+    sequence = [item[0] for item in sequence]
+    return sequence
+
+
+def reducer(sequence):
+    sequence = sorted(Counter(sequence).items())
+    sequence = {key: value for key, value in sequence}
+    return sequence
+
+
 def pregunta_09():
     """
     Retorne un diccionario que contenga la cantidad de registros en que
@@ -22,5 +40,9 @@ def pregunta_09():
      'hhh': 16,
      'iii': 18,
      'jjj': 18}}
-
     """
+    path_file = "files/input/data.csv"
+    lines = read_file(path_file)
+    sequence = mapper(lines)
+    sequence = reducer(sequence)
+    return sequence
