@@ -6,6 +6,22 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from .pregunta_01 import read_file
+from .pregunta_03 import shuffle_and_sort
+from itertools import groupby
+
+
+def reducer(sequence):
+    """Reducer"""
+    result = []
+    for key, group in groupby(sequence, lambda x: x[0]):
+        group_list = list(group)
+        result.append(
+            (key, [value for _, value in group_list])
+        )
+    return result
+
+
 def pregunta_07():
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
@@ -23,5 +39,10 @@ def pregunta_07():
      (7, ['A', 'C', 'E', 'D']),
      (8, ['E', 'D', 'E', 'A', 'B']),
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
-
     """
+    path_file = "files/input/data.csv"
+    lines = read_file(path_file)
+    sequence = [(int(col[1]), col[0]) for col in lines]
+    sequence = shuffle_and_sort(sequence)
+    sequence = reducer(sequence)
+    return sequence
