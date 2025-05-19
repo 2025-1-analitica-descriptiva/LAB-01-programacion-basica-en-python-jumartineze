@@ -6,6 +6,11 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from .pregunta_01 import read_file
+from .pregunta_03 import shuffle_and_sort
+from .pregunta_07 import reducer
+
+
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
@@ -25,5 +30,11 @@ def pregunta_08():
      (7, ['A', 'C', 'D', 'E']),
      (8, ['A', 'B', 'D', 'E']),
      (9, ['A', 'B', 'C', 'E'])]
-
-    """
+    """ 
+    path_file = "files/input/data.csv"
+    lines = read_file(path_file)
+    sequence = [(int(col[1]), col[0]) for col in lines]
+    sequence = shuffle_and_sort(sequence)
+    sequence = reducer(sequence)
+    sequence = [(key, sorted(set(group))) for key, group in sequence]
+    return sequence
