@@ -6,6 +6,9 @@ utilizar pandas, numpy o scipy.
 """
 
 
+from .pregunta_01 import read_file
+
+
 def pregunta_10():
     """
     Retorne una lista de tuplas contengan por cada tupla, la letra de la
@@ -17,6 +20,10 @@ def pregunta_10():
      ...
      ('E', 2, 3),
      ('E', 3, 3)]
-
-
     """
+    path_file = "files/input/data.csv"
+    lines = read_file(path_file)
+    sequence = [(col[0], 
+                 len(col[3].split(",")), 
+                 len(col[4].split(","))) for col in lines]
+    return sequence
